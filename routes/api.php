@@ -16,6 +16,8 @@ use App\Http\Controllers\SongController;
 |
 */
 
+Route::get('/all', \App\Http\Controllers\AllController::class)->name('all');
+
 Route::prefix('/executors')->group(static function() {
     Route::get('/', [ExecutorController::class, 'index'])->name('executor.index');
     Route::post('/', [ExecutorController::class, 'store'])->name('executor.store');
