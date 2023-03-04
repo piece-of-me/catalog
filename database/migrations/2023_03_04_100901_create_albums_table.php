@@ -15,7 +15,7 @@ return new class extends Migration
             $table->index('executor_id', 'album_executor_idx');
             $table->foreign('executor_id', 'album_executor_jk')->on('executors')->references('id');
 
-            $table->date('year_of_issue');
+            $table->year('year_of_issue');
         });
     }
 
