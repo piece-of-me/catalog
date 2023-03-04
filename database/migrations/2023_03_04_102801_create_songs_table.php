@@ -13,7 +13,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('album_id')->nullable();
             $table->index('album_id', 'song_album_idx');
-            $table->foreign('album_id', 'song_album_fk')->on('albums')->references('id');
+            $table->foreign('album_id', 'song_album_fk')->on('albums')->references('id')->cascadeOnDelete();
 
             $table->string('name');
             $table->unsignedSmallInteger('order_number_in_album');

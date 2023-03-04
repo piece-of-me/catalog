@@ -11,4 +11,9 @@ class Executor extends Model
 
     protected $table = 'executors';
     protected $guarded = false;
+    public $timestamps = false;
+
+    public function albums() {
+        return $this->hasMany(Album::class);
+    }
 }

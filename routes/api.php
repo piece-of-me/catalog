@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExecutorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('/executors')->group(static function() {
+    Route::get('/', [ExecutorController::class, 'index'])->name('executor.index');
+    Route::post('/', [ExecutorController::class, 'store'])->name('executor.store');
+    Route::patch('/{executor}', [ExecutorController::class, 'update'])->name('executor.update');
+    Route::delete('/{executor}', [ExecutorController::class, 'delete'])->name('executor.delete');
 });

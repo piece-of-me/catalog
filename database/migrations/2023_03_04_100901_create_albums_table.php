@@ -13,7 +13,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('executor_id')->nullable();
             $table->index('executor_id', 'album_executor_idx');
-            $table->foreign('executor_id', 'album_executor_jk')->on('executors')->references('id');
+            $table->foreign('executor_id', 'album_executor_jk')->on('executors')->references('id')->cascadeOnDelete();
 
             $table->year('year_of_issue');
         });
