@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExecutorController;
 use App\Http\Controllers\AlbumController;
@@ -17,9 +16,6 @@ use App\Http\Controllers\SongController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 Route::prefix('/executors')->group(static function() {
     Route::get('/', [ExecutorController::class, 'index'])->name('executor.index');
     Route::post('/', [ExecutorController::class, 'store'])->name('executor.store');
