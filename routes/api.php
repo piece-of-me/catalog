@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExecutorController;
+use App\Http\Controllers\AlbumController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +25,11 @@ Route::prefix('/executors')->group(static function() {
     Route::post('/', [ExecutorController::class, 'store'])->name('executor.store');
     Route::patch('/{executor}', [ExecutorController::class, 'update'])->name('executor.update');
     Route::delete('/{executor}', [ExecutorController::class, 'delete'])->name('executor.delete');
+});
+
+Route::prefix('/albums')->group(static function() {
+   Route::get('/', [AlbumController::class, 'index'])->name('album.index');
+    Route::post('/', [AlbumController::class, 'store'])->name('album.store');
+    Route::patch('/{album}', [AlbumController::class, 'update'])->name('album.update');
+    Route::delete('/{album}', [AlbumController::class, 'delete'])->name('album.delete');
 });
