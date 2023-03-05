@@ -19,3 +19,4 @@
 
 # Запуск приложения
 * Собрать и запустить приложение с помощью `docker-compose up -d`;
+* Запустить миграции с помощью `docker exec -it app php artisan migrate --seed`;
