@@ -845,7 +845,7 @@
                 "type": "object"
             },
             "SongStoreRequest": {
-                "description": "Данные запроса для добавления пени",
+                "description": "Данные запроса для добавления песни",
                 "required": [
                     "name",
                     "orderNumberInAlbum",

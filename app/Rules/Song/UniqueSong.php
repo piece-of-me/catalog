@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Rules;
+namespace App\Rules\Song;
 
 use App\Models\Song;
 use Illuminate\Contracts\Validation\DataAwareRule;
@@ -21,16 +21,18 @@ class UniqueSong implements Rule, DataAwareRule
     {
         $name = $this->_data['name'] ?? $this->_song->name;
         $orderNumberInAlbum = $this->_data['orderNumberInAlbum'] ?? $this->_song->order_number_in_album;
+        $albumId = $this->_data['albumId'] ?? $this->_song->album_id;
         $song = Song::where('name', $name)->get();
-        if ($song->count() <= 0) {
-            return true;
+
+        if ($song->filter(fn($curSong) => $curSong->album_id == $albumId)->count() > 0) {
+            $this->_message = 'Песня "' . $name . '" уже есть в альбоме';
+            return false;
         }
-        $song = $song->filter(fn($curSong) => $curSong->order_number_in_album == $orderNumberInAlbum);
-        if ($song->count() <= 0) {
-            return true;
+        if ($song->filter(fn($curSong) => $curSong->order_number_in_album == $orderNumberInAlbum)->count() > 0) {
+            $this->_message = 'Песня "' . $name . '" c таким же порядковым номером уже есть в другом альбоме';
+            return false;
         }
-        $this->_message = 'Песня "' . $name . '" c таким же порядковым номером уже есть в альбоме "' . $song->first()->album->name . '"';
-        return false;
+        return true;
     }
 
     public function message(): string

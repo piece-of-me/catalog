@@ -2,7 +2,8 @@
 
 namespace App\Http\Requests\Song;
 
-use App\Rules\UniqueSong;
+use App\Rules\Song\UniqueOrderNumberRule;
+use App\Rules\Song\UniqueSong;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -26,7 +27,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'orderNumberInAlbum' => 'numeric',
+            'orderNumberInAlbum' => ['numeric', new UniqueOrderNumberRule($this->route()->song)],
             'albumId' => 'numeric|exists:albums,id',
             'name' => ['string', new UniqueSong($this->route()->song)],
         ];

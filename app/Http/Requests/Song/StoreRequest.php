@@ -2,7 +2,8 @@
 
 namespace App\Http\Requests\Song;
 
-use App\Rules\UniqueSong;
+use App\Rules\Song\UniqueSong;
+use App\Rules\Song\UniqueOrderNumberRule;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -10,7 +11,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 /**
  * @OA\Schema(
  *     schema="SongStoreRequest",
- *     description="Данные запроса для добавления пени",
+ *     description="Данные запроса для добавления песни",
  *     required={"name", "orderNumberInAlbum", "albumId"},
  *     @OA\Property (property="name", type="string", example="I Am Hated", description="Название песни"),
  *     @OA\Property (property="orderNumberInAlbum", type="int", example="10", description="Порядковый номер в альбоме"),
@@ -27,7 +28,7 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'orderNumberInAlbum' => 'required|numeric',
+            'orderNumberInAlbum' => ['required', 'numeric', new UniqueOrderNumberRule],
             'albumId' => 'required|numeric|exists:albums,id',
             'name' => ['required', 'string', new UniqueSong],
         ];
