@@ -1,4 +1,3 @@
-
 # Требования
 
 * Установленный [node-js](https://nodejs.org/en/download/).
@@ -10,13 +9,15 @@
 
 ### Клонирование репозитория
 * Клонировать репозиторий `git clone https://github.com/piece-of-me/catalog.git`;
-* Перейти в папку storage `cd catalog`;
+* Перейти в папку catalog `cd catalog`;
 
 ### Установка пакетов и зависимостей
-* Установить пакеты и зависимости с помощью `npm install`;
 * Скопировать переменные окружения `cat .env.example > .env`;
+* Установить пакеты и зависимости с помощью `npm install`;
 * Установить зависимости с помощью `composer install`;
 
 # Запуск приложения
 * Собрать и запустить приложение с помощью `docker-compose up -d`;
 * Запустить миграции с помощью `docker exec -it app php artisan migrate --seed`;
+
+### [Swagger](http://localhost:8000/api/documentation#)
