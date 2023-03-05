@@ -7,6 +7,16 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
+/**
+ * @OA\Schema(
+ *     schema="SongStoreRequest",
+ *     description="Данные запроса для добавления пени",
+ *     required={"name", "orderNumberInAlbum", "albumId"},
+ *     @OA\Property (property="name", type="string", example="I Am Hated", description="Название песни"),
+ *     @OA\Property (property="orderNumberInAlbum", type="int", example="10", description="Порядковый номер в альбоме"),
+ *     @OA\Property (property="albumId", type="int", example="2", description="Id альбома")
+ * )
+ */
 class StoreRequest extends FormRequest
 {
     public function authorize(): bool

@@ -1,0 +1,1114 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API каталога исполнителей и их альбомов с песнями",
+        "description": "API каталога исполнителей и их альбомов с песнями",
+        "version": "0.0.1"
+    },
+    "paths": {
+        "/api/albums/": {
+            "get": {
+                "tags": [
+                    "Альбомы"
+                ],
+                "summary": "Получение информации об альбомах",
+                "description": "Получение массива всех альбомов",
+                "operationId": "GetAlbums",
+                "responses": {
+                    "200": {
+                        "description": "Успешный запрос",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/AlbumResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка при выполнении запроса",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Альбомы"
+                ],
+                "summary": "Добавление альбома",
+                "description": "Добавление альбома",
+                "operationId": "PostAlbum",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AlbumStoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Успешный запрос",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/AlbumResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "description": "Сообщение ошибки валидатора",
+                                            "type": "string",
+                                            "example": "Поле 'name' должно быть строкой"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка при выполнении запроса",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/albums/{album_id}": {
+            "delete": {
+                "tags": [
+                    "Альбомы"
+                ],
+                "summary": "Удаление альбома",
+                "description": "Удаление альбома и всей информации о нем",
+                "operationId": "DeletehAlbum",
+                "responses": {
+                    "200": {
+                        "description": "Успешный запрос",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Альбом не найден",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Entity Not Found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка при выполнении запроса",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Альбомы"
+                ],
+                "summary": "Обновление информации об альбоме",
+                "description": "Обновление информации об альбоме",
+                "operationId": "PatchAlbum",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AlbumUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Успешный запрос",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/AlbumResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Альбом не найден",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Entity Not Found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "description": "Сообщение ошибки валидатора",
+                                            "type": "string",
+                                            "example": "Поле 'name' должно быть строкой"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка при выполнении запроса",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/all/": {
+            "get": {
+                "tags": [
+                    "Общая информация"
+                ],
+                "summary": "Получение всей информации",
+                "description": "Получение всех данных",
+                "operationId": "GetAllInfo",
+                "responses": {
+                    "200": {
+                        "description": "Успешный запрос",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/AllExecutorResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка при выполнении запроса"
+                    }
+                }
+            }
+        },
+        "/api/executors/": {
+            "get": {
+                "tags": [
+                    "Исполнители"
+                ],
+                "summary": "Получение информации об исполнителе",
+                "description": "Получение массива всех исполнителей",
+                "operationId": "GetExecutors",
+                "responses": {
+                    "200": {
+                        "description": "Успешный запрос",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ExecutorResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка при выполнении запроса",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Исполнители"
+                ],
+                "summary": "Добавление исполнителя",
+                "description": "Добавление исполнителя",
+                "operationId": "PostExecutor",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExecutorRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Успешный запрос",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/ExecutorResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/executors/{executor_id}": {
+            "delete": {
+                "tags": [
+                    "Исполнители"
+                ],
+                "summary": "Удаление исполнителя",
+                "description": "Удаление исполнителя и всей информации о нем",
+                "operationId": "DeletehExecutor",
+                "responses": {
+                    "200": {
+                        "description": "Успешный запрос",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Исполнитель не найден",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Entity Not Found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка при выполнении запроса",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Исполнители"
+                ],
+                "summary": "Обновление информации об исполнителе",
+                "description": "Обновление информации об исполнителе",
+                "operationId": "PatchExecutor",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExecutorRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Успешный запрос",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/ExecutorResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Исполнитель не найден",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Entity Not Found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка при выполнении запроса",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/songs/": {
+            "get": {
+                "tags": [
+                    "Песни"
+                ],
+                "summary": "Получение информации о песнях",
+                "description": "Получение информации о песнях",
+                "operationId": "GetSongs",
+                "responses": {
+                    "200": {
+                        "description": "Успешный запрос",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/SongResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка при выполнении запроса",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Песни"
+                ],
+                "summary": "Добавление песни",
+                "description": "Добавление песни",
+                "operationId": "PostSong",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SongStoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Успешный запрос",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/SongResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "description": "Сообщение ошибки валидатора",
+                                            "type": "string",
+                                            "example": "Поле 'name' должно быть строкой"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка при выполнении запроса",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/songs/{song_id}": {
+            "patch": {
+                "tags": [
+                    "Песни"
+                ],
+                "summary": "Обновление информации о песне",
+                "description": "Обновление информации о песне",
+                "operationId": "PatchSong",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SongUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Успешный запрос",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/SongResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Песня не найдена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Entity Not Found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "description": "Сообщение ошибки валидатора",
+                                            "type": "string",
+                                            "example": "Поле 'name' должно быть строкой"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка при выполнении запроса",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/songs/{songs_id}": {
+            "delete": {
+                "tags": [
+                    "Песни"
+                ],
+                "summary": "Удаление песни",
+                "description": "Удаление песни",
+                "operationId": "DeleteSong",
+                "responses": {
+                    "200": {
+                        "description": "Успешный запрос",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Исполнитель не найден",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Entity Not Found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка при выполнении запроса",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AlbumStoreRequest": {
+                "description": "Данные запроса для добавления альбома",
+                "required": [
+                    "name",
+                    "year",
+                    "executorId"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Название аольбома",
+                        "type": "string",
+                        "example": "We Are Not Your Kind"
+                    },
+                    "year": {
+                        "description": "Год выпуска",
+                        "type": "integer",
+                        "example": "2019"
+                    },
+                    "executorId": {
+                        "description": "Id исполнителя ольбома",
+                        "type": "integer",
+                        "example": "1"
+                    }
+                },
+                "type": "object"
+            },
+            "AlbumUpdateRequest": {
+                "description": "Данные запроса для обновления данных альбома",
+                "properties": {
+                    "name": {
+                        "description": "Название аольбома",
+                        "type": "string",
+                        "example": "We Are Not Your Kind"
+                    },
+                    "year": {
+                        "description": "Год выпуска",
+                        "type": "integer",
+                        "example": "2019"
+                    },
+                    "executorId": {
+                        "description": "Id исполнителя ольбома",
+                        "type": "integer",
+                        "example": "2"
+                    }
+                },
+                "type": "object"
+            },
+            "ExecutorRequest": {
+                "description": "Данные запроса для добавления исполнителя",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Название исполнителя",
+                        "type": "string",
+                        "example": "Yegor Letov"
+                    }
+                },
+                "type": "object"
+            },
+            "SongStoreRequest": {
+                "description": "Данные запроса для добавления пени",
+                "required": [
+                    "name",
+                    "orderNumberInAlbum",
+                    "albumId"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Название песни",
+                        "type": "string",
+                        "example": "I Am Hated"
+                    },
+                    "orderNumberInAlbum": {
+                        "description": "Порядковый номер в альбоме",
+                        "type": "integer",
+                        "example": "10"
+                    },
+                    "albumId": {
+                        "description": "Id альбома",
+                        "type": "integer",
+                        "example": "2"
+                    }
+                },
+                "type": "object"
+            },
+            "SongUpdateRequest": {
+                "description": "Данные запроса для обновления данных альбома",
+                "properties": {
+                    "name": {
+                        "description": "Название песни",
+                        "type": "string",
+                        "example": "Снаружи всех измерени"
+                    },
+                    "orderNumberInAlbum": {
+                        "description": "Порядковый номер в альбоме",
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "albumId": {
+                        "description": "Id альбома",
+                        "type": "integer",
+                        "example": "16"
+                    }
+                },
+                "type": "object"
+            },
+            "AlbumResource": {
+                "description": "Данные об альбоме",
+                "properties": {
+                    "id": {
+                        "description": "Id альбома",
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "name": {
+                        "description": "Название альбома",
+                        "type": "string",
+                        "example": "Iowa"
+                    },
+                    "yearOfIssue": {
+                        "description": "Год выпуска",
+                        "type": "integer",
+                        "example": "2001"
+                    },
+                    "executor": {
+                        "description": "Информация об исполнителе альбома",
+                        "properties": {
+                            "id": {
+                                "description": "Id исполнителя",
+                                "type": "integer",
+                                "example": "1"
+                            },
+                            "name": {
+                                "description": "Название исполнителя",
+                                "type": "string",
+                                "example": "Corey Taylor"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "AllAlbumResource": {
+                "description": "Данные об альбоме",
+                "properties": {
+                    "id": {
+                        "description": "Id альбома",
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "name": {
+                        "description": "Название альбома",
+                        "type": "string",
+                        "example": "Iowa"
+                    },
+                    "yearOfIssue": {
+                        "description": "Год выпуска",
+                        "type": "integer",
+                        "example": "2001"
+                    },
+                    "songs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AllSongResource"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "AllExecutorResource": {
+                "description": "Данные об исполнителях",
+                "properties": {
+                    "id": {
+                        "description": "Id исполнителя",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "description": "Название исполнителя",
+                        "type": "string",
+                        "example": "Corey Taylor"
+                    },
+                    "albums": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AllAlbumResource"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "AllSongResource": {
+                "description": "Данные о песнях",
+                "properties": {
+                    "id": {
+                        "description": "Id песни",
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "name": {
+                        "description": "Название песни",
+                        "type": "string",
+                        "example": "Wait and Bleed"
+                    },
+                    "orderNumberInAlbum": {
+                        "description": "Порядковый номер в альбоме",
+                        "type": "integer",
+                        "example": "4"
+                    }
+                },
+                "type": "object"
+            },
+            "ExecutorResource": {
+                "description": "Данные об исполнителе",
+                "properties": {
+                    "id": {
+                        "description": "Id исполнителя",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "description": "Название исполнителя",
+                        "type": "string",
+                        "example": "Corey Taylor"
+                    }
+                },
+                "type": "object"
+            },
+            "SongResource": {
+                "description": "Данные о песне",
+                "properties": {
+                    "id": {
+                        "description": "Id песни",
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "name": {
+                        "description": "Название песни",
+                        "type": "string",
+                        "example": "Wait and Bleed"
+                    },
+                    "orderNumberInAlbum": {
+                        "description": "Порядковый номер в альбоме",
+                        "type": "integer",
+                        "example": "4"
+                    },
+                    "album": {
+                        "description": "Информация об альбоме",
+                        "properties": {
+                            "id": {
+                                "description": "Id альбома",
+                                "type": "integer",
+                                "example": "2"
+                            },
+                            "name": {
+                                "description": "Название альбома",
+                                "type": "string",
+                                "example": "Iowa"
+                            },
+                            "yearOfIssue": {
+                                "description": "Год выпуска",
+                                "type": "integer",
+                                "example": "2001"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "responses": {
+            "422": {
+                "description": "Ошибка валидации данных",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "name": {
+                                    "description": "Сообщение ошибки валидации",
+                                    "type": "string",
+                                    "example": "Поле 'name' должно быть строкой"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "500": {
+                "description": "Ошибка при выполнении запроса",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "description": "Сообщение об ошибке",
+                                    "type": "string",
+                                    "example": "Internal Server Error"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "404": {
+                "description": "Исполнитель не найден",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "description": "Сообщение об ошибке",
+                                    "type": "string",
+                                    "example": "Entity Not Found"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

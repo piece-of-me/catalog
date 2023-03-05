@@ -6,6 +6,15 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
+/**
+ * @OA\Schema(
+ *     schema="AlbumUpdateRequest",
+ *     description="Данные запроса для обновления данных альбома",
+ *     @OA\Property (property="name", type="string", example="We Are Not Your Kind", description="Название аольбома"),
+ *     @OA\Property (property="year", type="int", example="2019", description="Год выпуска"),
+ *     @OA\Property (property="executorId", type="int", example="2", description="Id исполнителя ольбома"),
+ * )
+ */
 class UpdateRequest extends FormRequest
 {
     private string $_curYear;

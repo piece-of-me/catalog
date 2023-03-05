@@ -7,6 +7,15 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
+/**
+ * @OA\Schema(
+ *     schema="SongUpdateRequest",
+ *     description="Данные запроса для обновления данных альбома",
+ *     @OA\Property (property="name", type="string", example="Снаружи всех измерени", description="Название песни"),
+ *     @OA\Property (property="orderNumberInAlbum", type="int", example="2", description="Порядковый номер в альбоме"),
+ *     @OA\Property (property="albumId", type="int", example="16", description="Id альбома")
+ * )
+ */
 class UpdateRequest extends FormRequest
 {
     public function authorize(): bool
